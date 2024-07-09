@@ -1,1 +1,23 @@
+
+
+/* En src/styles.css */
+@import '../node_modules/ngx-toastr/toastr.css';
+
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --BackgroundColor:#fafafa;
+}
+
+.container-Content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 50vh; */
+    background-color: var(--BackgroundColor) !important;
+    padding: 5em;
+    border-radius: 3em !important; 
+    margin-bottom: -50em !important;
+} 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
