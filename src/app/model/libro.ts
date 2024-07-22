@@ -9,5 +9,5 @@ export interface Libro {
     Autor: string;
     Editorial: string;
     Año: string;
-    
+    ciclo: string;
 }
