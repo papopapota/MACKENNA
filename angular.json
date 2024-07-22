@@ -36,8 +36,10 @@
               "src/app/table/SideBar.css"
             ],
             "scripts": [
+
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "src/assets/JS/sheets_get_values.js"
+
             ]
           },
           "configurations": {
