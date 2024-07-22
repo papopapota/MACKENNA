@@ -1,8 +1,8 @@
 
 
 /* En src/styles.css */
-/* @import '../node_modules/ngx-toastr/toastr.css'; */
-@import 'ngx-toastr/toastr.css';
+/* @import '../node_modules/ngx-toastr/toastr.css'; ~*/
+@import 'ngx-toastr/toastr';
 
 
 
