@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LibroService {
-  private url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTK0EvhaHRy08R11H6XCEBPUUePTvljv0-UQamxVpInIookZruDOLHJ7zeLiH7I2wfZjT4VrJsXK8Lw/pub?output=csv';
+  private url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTibFSl9KU92Z3sJLq9Jru7xl3XHxTdpNtkJy6JuBEzPJj-SxyGa4u-EqzZ06Z9cn6q9kUQ7n3G8Lnf/pub?output=csv';
   constructor(private http : HttpClient) { }
 
   getLibros():Observable<any>{
