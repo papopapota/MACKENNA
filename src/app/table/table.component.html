@@ -1,67 +1,115 @@
-<div class="container">
-  <div class="d-flex justify-content-center align-items-center container-Content   ">
-    <div class="row w-100 ">
 
-      <div class="col-lg-12 col-md-12">
-        <h1 class="text-center">Bienvenido a la libreria</h1>
-      </div>
+<div class="d-flex">
 
-      <div class="col-lg-8 col-md-12  ">
-        <div class="col-12 mb-5  table-container">
-          <mat-form-field class="wide-form-field">
-            <mat-label class="pe-5">Buscar</mat-label>
-            <input class="pe-5" matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
-          </mat-form-field>
-          <table class="table table-hover " mat-table  [dataSource]="dataSource" matSort >
-    
-            <ng-container matColumnDef="Name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-              <td (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> {{ libro.Name }} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="Date Last Updated">
-              <th class="text-start" mat-header-cell *matHeaderCellDef mat-sort-header> Ultima Actualización </th>
-              <td (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> {{ libro['Date Last Updated'] }} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="URL">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> URL </th>
-              <td (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> <a target="_blank" [href]="libro.URL">{{ libro.Name }}</a> </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="headers"></tr>
-            <tr  mat-row *matRowDef="let header; columns:headers; " ></tr>
-    
-              <!-- <tr (click)="actualizarPdfView(row.ID)" *ngFor="let row of data">
-                <td>{{ row.Folder }}</td> 
-                <td  class="fs-6">{{ row.Name }}</td>
-                <td class="fs-6">{{ row['Date Last Updated'] }}</td>
-                <td class="fs-6"> <a target="_blank" [href]="row.URL">{{ row.Name }}</a> </td>
-                 <td>{{ row.ID }}</td>
-                <td>{{ row.Description }}</td>
-                <td>{{ row.Type }}</td> 
-                <td>{{ row.Autor }}</td>
-                <td>{{ row.Editorial }}</td>
-                <td>{{ row['Año'] }}</td>
+
+  <!-- Nabvar Aside -->
+  <div #NabvarAside id="NabvarAside" class="flex-shrink-0 p-3 border-end border-3 bg-primary text-white navbar-aside" style="">
+    <a (click)="btnCollapseClick($event)" class="d-flex align-items-center justify-content-center pb-3 mb-3 text-white text-decoration-none border-bottom ">
+      <img class="bi me-2 rounded" src="assets\image\logo-Mackenna-removebg-preview.png"  width="50" height="50" alt="" srcset="">
+      <span></span>
+
+      <!-- <span class="fs-5 fw-semibold">Collapsible</span> -->
+    </a>
+    <a  #NabvarAsideElement class="d-flex align-items-center justify-content-center pb-3 mb-3 text-white text-decoration-none border-bottom animate-appear">
+      <h1 class=" fs-5 fw-semibold">Carreras</h1>
+    </a>
+    <ul  #NabvarAsideElement class="list-unstyled ps-0 nav-pills animate-appear">
+      <li  *ngFor="let carrera of carreras" class="mb-1">
+        <button (click)="filtrar(carrera.descripcion)" #itemListTittle class="btn btn-toggle align-items-center rounded collapsed text-white " data-bs-toggle="collapse" 
+        data-bs-target="#curse-collapse" aria-expanded="false">
+          {{ carrera.descripcion }}
+        </button>
+      
+          <div   *ngFor="let curso of carrera.cursos" #itemListContent class=" collapse" id="curse-collapse" >
+            <ng-container *ngIf="curso.temas.length == 0" >
+              <ul  class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a (click)="filtrar(curso.nombre)"   class="link-light rounded">{{curso.nombre}}</a></li>
         
-              </tr> -->
-    
-          </table>
-          <mat-paginator [pageSizeOptions]="[5, 10 , 15]" showFirstLastButtons></mat-paginator>
-    
+              </ul>
+            </ng-container>
+            <ng-container *ngIf="curso.temas.length > 0" >
+              <button  class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#theme-collapse" aria-expanded="false">
+                <a (click)="filtrar(curso.nombre)"  class="fw-normal link-light rounded">{{curso.nombre}}</a>
+        
+              </button>
+              <div   #itemListContent class="collapse " id="theme-collapse" >
+                <ul *ngFor="let tema of curso.temas"  class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  <li><a (click)="filtrar(tema.nombre)"  class=" link-light rounded">{{tema.nombre}}</a></li>
+          
+                </ul>
+              </div>
+            </ng-container>
+          </div>
+
+
+      </li>
+      <li class="border-top my-3"></li>
+
+    </ul>
+  </div>
+
+  <div class="right-divider  vh-100"></div>
+  <!-- Nabvar Aside END -->
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center container-Content   ">
+      <div class="row w-100 ">
+
+        <div class="col-lg-12 col-md-12">
+          <h1 class="text-center">Biblioteca Virtual</h1>
         </div>
+
+        <div class="col-lg-8 col-md-12  ">
+          <div class="col-12 mb-5  table-container">
+            <mat-form-field class="wide-form-field">
+              <mat-label class="pe-5">Buscar</mat-label>
+              <input class="pe-5" matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+            </mat-form-field>
+            <table class="table table-hover " mat-table  [dataSource]="dataSource" matSort >
+      
+              <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Libro </th>
+                <td id="column-name" class="" (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> {{ libro.Name }} </td>
+              </ng-container>
+      
+              <ng-container  matColumnDef="Date Last Updated">
+                <th id="entire-column-update"  mat-header-cell *matHeaderCellDef mat-sort-header> Ultima Actualización </th>
+                <td  id="column-update" (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> {{ libro['Date Last Updated'] }} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="URL">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Abrir Libro </th>
+                <td (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> 
+                    <a class="d-flex justify-content-center" target="_blank" [href]="libro.URL"> 
+                      <img class="img-fluid rounded-circle img-Column-Styles"  [src]="srcImg"> 
+                    </a> 
+                </td>
+              </ng-container>
+
+              <ng-container  matColumnDef="ciclo">
+                <th id="entire-column-update"  mat-header-cell *matHeaderCellDef mat-sort-header> Ciclo </th>
+                <td  id="column-update" (click)="actualizarPdfView(libro.ID)" mat-cell *matCellDef="let libro"> {{ libro.ciclo }} </td>
+              </ng-container>
+      
+              <tr mat-header-row *matHeaderRowDef="headers"></tr>
+              <tr  mat-row *matRowDef="let header; columns:headers; " ></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10 , 15]" showFirstLastButtons></mat-paginator>
+      
+          </div>
+        </div>
+      
+
+      <div class=" row col-lg-4 col-md-12  d-flex justify-content-center ">
+        <!-- <img class="img-Portada  object-fit-contain" src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg" 
+        alt="escritura creativa" > -->
+        <iframe class="ps-1 img-Portada  object-fit-contain" [src]="UrlPased" width="100%" height="400px"></iframe>
+        <!-- <iframe [src]="UrlPased" src="https://docs.google.com/gview?url=http://ruta/al/archivo.pdf&embedded=true" style="width:100%; height:600px;" frameborder="0"></iframe> -->
+
       </div>
+    </div>
+    </div>
     
 
-    <div class=" row col-lg-4 col-md-12  d-flex justify-content-center ">
-      <!-- <img class="img-Portada  object-fit-contain" src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg" 
-      alt="escritura creativa" > -->
-      <iframe class="ps-1 img-Portada  object-fit-contain" [src]="UrlPased" width="100%" height="400px"></iframe>
-      <!-- <iframe [src]="UrlPased" src="https://docs.google.com/gview?url=http://ruta/al/archivo.pdf&embedded=true" style="width:100%; height:600px;" frameborder="0"></iframe> -->
-
-    </div>
   </div>
-  </div>
-  
-
 </div>
+
