@@ -132,9 +132,9 @@ table {
   animation: appear 1s forwards;
 }
 
-#smallingNavbarAside{
-  /* left: 10px; */
-}
+/* #smallingNavbarAside{
+   left: 10px; 
+} */
 
 @keyframes disappear {
   from {
